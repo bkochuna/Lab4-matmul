@@ -82,6 +82,20 @@ CONTAINS
     REAL(8),INTENT(IN) :: alpha,beta
     REAL(8),INTENT(IN) :: a(lda,*),b(ldb,*),c(ldc,*)
 
+    !This function should perform the followign operation:
+    !C = alpha*A*B + beta*C
+
+    !Inputs:
+    !  Ignore transa and transb for this exercise. Just pass in 'n'.
+    !   m = # rows of a and c
+    !   n = # columns in b and c
+    !   k = # columns of a and rows of b
+    ! lda = leading dimension of a
+    ! ldb = leading dimension of b
+    ! ldc = leading dimension of c
+
+    !Output:
+    !  An updated matrix c
 
     !Write your naive matrix multiply here
 
