@@ -46,7 +46,7 @@ PROGRAM matmul_example
     CALL SYSTEM_CLOCK(start,count_rate) !get start time
 
     !my general matrix-matrix multiply
-    CALL mydgemm('n','n',n,n,n,1.0d0,a,n,b,n,1.0d0,c,n)
+    CALL mydgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,c,n)
 
     CALL SYSTEM_CLOCK(finish) !get finish time
 
@@ -57,7 +57,7 @@ PROGRAM matmul_example
 !    CALL SYSTEM_CLOCK(start,count_rate) !get start time
 !
 !    !my general matrix-matrix multiply
-!    CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,1.0d0,d,n)
+!    CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,d,n)
 !
 !    CALL SYSTEM_CLOCK(finish) !get finish time
 !
@@ -68,6 +68,7 @@ PROGRAM matmul_example
      !Compare the result of your matrix multiply with BLAS
 !    IF(ANY(ABS(c-d) > 1.0d-13)) THEN
 !      WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
+!      WRITE(*,*) MAXVAL(ABS(c-d))
 !    ENDIF
   ELSE
     WRITE(*,*) "Matrix size must be greater than 0!"
@@ -80,7 +81,8 @@ CONTAINS
     CHARACTER(LEN=*),INTENT(IN) :: transa,transb
     INTEGER,INTENT(IN) :: m,n,k,lda,ldb,ldc
     REAL(8),INTENT(IN) :: alpha,beta
-    REAL(8),INTENT(IN) :: a(lda,*),b(ldb,*),c(ldc,*)
+    REAL(8),INTENT(IN) :: a(lda,*),b(ldb,*)
+    REAL(8),INTENT(INOUT) :: c(ldc,*)
 
     !This function should perform the followign operation:
     !C = alpha*A*B + beta*C
