@@ -226,7 +226,7 @@ int main()
 //    duration = ( clock()-start ) / (double)(CLOCKS_PER_SEC);
 //    //std::cout << std::endl << "a*b = ";
 //    //print_matrix(d,n,n);
-//    std::cout << std::endl << "mydgemm took " << duration << 
+//    std::cout << std::endl << "BLAS dgemm took " << duration << 
 //                              " seconds!" << std::endl;
 //
 //    //Check to see if answer is correct:
