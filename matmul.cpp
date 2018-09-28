@@ -173,20 +173,22 @@ void mydgemm( char transa, char transb,
   
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    std::cout << "Hello, world!\n";
-
     //Size of matrix
     int n;
-    std::cout << "Please provide a matrix size:";
-    std::cin >> n;
+    n=0;
+    if( argc > 0)
+    {
+        n = atoi(argv[1]);
+    }
 
     if( n <= 0 )
     {
         std::cout << n << " is an invalid size!" << std::endl;
         return 1;
     }
+    std::cout << "Matrix size is " << n << std::endl;
 
     double **a = generate_random_matrix(n,n);
     double **b = generate_random_matrix(n,n);
