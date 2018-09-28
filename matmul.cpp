@@ -162,6 +162,8 @@ void mydgemm( char transa, char transb,
       n = # columns of b and c
       k = # columns of a and rows of b
 
+      Assume that matrices a, b, and c are all square (m == n == k)
+
      Output:
       An updated matrix c
 

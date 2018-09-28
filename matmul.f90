@@ -84,7 +84,7 @@ CONTAINS
     REAL(8),INTENT(IN) :: a(lda,*),b(ldb,*)
     REAL(8),INTENT(INOUT) :: c(ldc,*)
 
-    !This function should perform the followign operation:
+    !This function should perform the following operation:
     !C = alpha*A*B + beta*C
 
     !Inputs:
@@ -95,6 +95,9 @@ CONTAINS
     ! lda = leading dimension of a
     ! ldb = leading dimension of b
     ! ldc = leading dimension of c
+
+    !Assume that matrices a, b, and c are all square (m == n == k)
+    !This also means lda == ldb == ldc == n
 
     !Output:
     !  An updated matrix c
