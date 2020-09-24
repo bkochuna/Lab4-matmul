@@ -132,10 +132,11 @@ void call_dgemm(int m, int n, int k,
     double *C_flat = flatten_matrix(C, m, n);
 
     char matrixType = 'n';
+/*
     dgemm_(&matrixType, &matrixType, &m, &n, &k, 
             &alpha, A_flat, &m, B_flat, &k,
             &beta, C_flat, &m);
-
+*/
     //Unflatten solution:
     for(unsigned int i=0; i<n; i++)
         for(unsigned int j=0; j<m; j++)
@@ -154,24 +155,37 @@ void mydgemm( char transa, char transb,
               const double * const * b,
               double beta, double **c)
 {
-  // This function should perform the following operation:
-  //   C = alpha*A*B + beta*C
-  /* Inputs:
-      Ignore transa and transb for this exercise.  Just pass in 'n'.
-      m = # rows of a and c
-      n = # columns of b and c
-      k = # columns of a and rows of b
+    //This function should perform the following operation:
+    //C = alpha*A*B + beta*C
 
-      Assume that matrices a, b, and c are all square (m == n == k)
+    /*
+     Simplifying assumptions
+        * Assume that matrices a, b, and c are all square (m == n == k)
+          This also means lda == ldb == ldc == n
+        * Ignore transa and transb for this exercise. Just pass in 'n'
+          for these arguments.
+        * You do not need to perform multiplication by alpha or beta.
+          You may assume these are 1 and 0, respectively.
+
+     Inputs:
+      transa = assume 'n'
+      transb = assume 'n'
+           m = # rows of a and c
+           n = # columns in b and c
+           k = # columns of a and rows of b
+       alpha = assume 1.0
+           a = the matrix A
+         lda = leading dimension of A
+           b = the matrix B
+         ldb = leading dimension of B
+           c = the matrix C
+         ldc = leading dimension of C
 
      Output:
       An updated matrix c
+    */
 
-     The BLAS routine has extra arguments lda, ldb, and ldc that 
-     are not included here.
-  */      
-
-  // Your code here ....
+    //Write your naive matrix multiply here
   
 }
 
@@ -180,17 +194,16 @@ int main(int argc, char** argv)
     //Size of matrix
     int n;
     n=0;
-    if( argc > 0)
+    if( argc > 1)
     {
         n = atoi(argv[1]);
     }
-
     if( n <= 0 )
     {
         std::cout << n << " is an invalid size!" << std::endl;
         return 1;
     }
-    std::cout << "Matrix size is " << n << std::endl;
+    std::cout << " Performing matrix-matrix multipliciation for SIZE=" << n << std::endl;
 
     double **a = generate_random_matrix(n,n);
     double **b = generate_random_matrix(n,n);
@@ -220,7 +233,7 @@ int main(int argc, char** argv)
 
     //std::cout << std::endl << "a*b = ";
     //print_matrix(c,n,n);
-    std::cout << std::endl << "mydgemm took " << duration << 
+    std::cout << std::endl << " mydgemm took " << duration << 
                               " seconds!" << std::endl;
 
 //  Uncomment this to call blas:
@@ -237,7 +250,6 @@ int main(int argc, char** argv)
 //    if(!compare_matrices(c,d,n,n))
 //      std::cout << "Uh oh! Is your matrix multiply correct?" << std::endl;
 
-    std::cout << "Goodbye world!\n";
 
     delete_matrix(a,n);
     delete_matrix(b,n);

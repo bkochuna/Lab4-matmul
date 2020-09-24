@@ -32,6 +32,7 @@ PROGRAM matmul_example
 
   IF(n > 0) THEN
     WRITE(*,*) "Performing matrix-matrix multipliciation for SIZE=",n
+    WRITE(*,*)
 
     !Create storage for matrices
     ALLOCATE(a(n,n))
@@ -52,7 +53,7 @@ PROGRAM matmul_example
 
     !Convert time to seconds and print
     elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-    WRITE(*,'(a,f6.3,a)') "Time for MY dgemm=",elapsed_time," seconds"
+    WRITE(*,'(a,f6.3,a)') " mydgemm took",elapsed_time," seconds"
 
 !    CALL SYSTEM_CLOCK(start,count_rate) !get start time
 !
@@ -63,7 +64,7 @@ PROGRAM matmul_example
 !
 !    !Convert time to seconds and print
 !    elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-!    WRITE(*,'(a,f6.3,a)') "Time for BLAS dgemm=",elapsed_time," seconds"
+!    WRITE(*,'(a,f6.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
 
      !Compare the result of your matrix multiply with BLAS
 !    IF(ANY(ABS(c-d) > 1.0d-13)) THEN
@@ -87,17 +88,27 @@ CONTAINS
     !This function should perform the following operation:
     !C = alpha*A*B + beta*C
 
-    !Inputs:
-    !  Ignore transa and transb for this exercise. Just pass in 'n'.
-    !   m = # rows of a and c
-    !   n = # columns in b and c
-    !   k = # columns of a and rows of b
-    ! lda = leading dimension of a
-    ! ldb = leading dimension of b
-    ! ldc = leading dimension of c
+    !Simplifying assumptions
+    !   * Assume that matrices a, b, and c are all square (m == n == k)
+    !     This also means lda == ldb == ldc == n
+    !   * Ignore transa and transb for this exercise. Just pass in 'n'
+    !     for these arguments.
+    !   * You do not need to perform multiplication by alpha or beta.
+    !     You may assume these are 1 and 0, respectively.
 
-    !Assume that matrices a, b, and c are all square (m == n == k)
-    !This also means lda == ldb == ldc == n
+    !Inputs:
+    ! transa = assume 'n'
+    ! transb = assume 'n'
+    !      m = # rows of a and c
+    !      n = # columns in b and c
+    !      k = # columns of a and rows of b
+    !  alpha = assume 1.0
+    !      a = the matrix A
+    !    lda = leading dimension of A
+    !      b = the matrix B
+    !    ldb = leading dimension of B
+    !      c = the matrix C
+    !    ldc = leading dimension of C
 
     !Output:
     !  An updated matrix c
