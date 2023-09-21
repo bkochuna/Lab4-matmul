@@ -53,24 +53,24 @@ PROGRAM matmul_example
 
     !Convert time to seconds and print
     elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-    WRITE(*,'(a,f6.3,a)') " mydgemm took",elapsed_time," seconds"
+    WRITE(*,'(a,f9.3,a)') "   mydgemm took",elapsed_time," seconds"
 
-!    CALL SYSTEM_CLOCK(start,count_rate) !get start time
-!
-!    !my general matrix-matrix multiply
-!    CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,d,n)
-!
-!    CALL SYSTEM_CLOCK(finish) !get finish time
-!
-!    !Convert time to seconds and print
-!    elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-!    WRITE(*,'(a,f6.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
+    CALL SYSTEM_CLOCK(start,count_rate) !get start time
+
+    !my general matrix-matrix multiply
+    CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,d,n)
+
+    CALL SYSTEM_CLOCK(finish) !get finish time
+
+    !Convert time to seconds and print
+    elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
+    WRITE(*,'(a,f9.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
 
      !Compare the result of your matrix multiply with BLAS
-!    IF(ANY(ABS(c-d) > 1.0d-13)) THEN
-!      WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
-!      WRITE(*,*) MAXVAL(ABS(c-d))
-!    ENDIF
+    IF(ANY(ABS(c-d) > 1.0d-13)) THEN
+      WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
+      WRITE(*,*) MAXVAL(ABS(c-d))
+    ENDIF
   ELSE
     WRITE(*,*) "Matrix size must be greater than 0!"
     STOP 1
