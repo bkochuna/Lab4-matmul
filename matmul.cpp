@@ -23,7 +23,7 @@ double * generate_random_matrix(int m, int n)
   std::mt19937 rng(dev());
   std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-  for (int i = 0; i < m * n; i++) {
+  for (int i = 0; i < m * n; ++i) {
     matrix[i] = dist(rng);
   }
   // or for a more modern approach:
@@ -38,7 +38,7 @@ double * generate_zero_matrix(int m, int n)
 {
   double * matrix = new double[m * n];
 
-  for (int i = 0; i < m * n; i++) {
+  for (int i = 0; i < m * n; ++i) {
     matrix[i] = 0.0;
   }
   // or for a more modern approach:
@@ -92,8 +92,8 @@ void transpose_matrix(double * const matrix, int m, int n)
 {
   // This function transposes a matrix in place.
   // The matrix is m x n in size.
-  for (int i = 0; i < m; i++) {
-    for (int j = i + 1; j < n; j++) {
+  for (int i = 0; i < m; ++i) {
+    for (int j = i + 1; j < n; ++j) {
       std::swap(matrix[i * n + j], matrix[j * n + i]);
     }
   }
@@ -115,7 +115,7 @@ void call_dgemm(char transa, char transb,
 bool compare_matrices(double const * const m1, double const * const m2,
                       int m, int n, double tol = 1.0e-11)
 {
-  for (int i = 0; i < m * n; i++) {
+  for (int i = 0; i < m * n; ++i) {
     if (std::abs(m1[i] - m2[i]) > tol) {
       return false;
     }
