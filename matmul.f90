@@ -19,7 +19,7 @@ PROGRAM matmul_example
 
   !Default size
   n=0
-  
+
   !Convert to an integer
   READ(nstr,*,IOSTAT=ioerr) n
 
@@ -30,51 +30,51 @@ PROGRAM matmul_example
     STOP 1
   ENDIF
 
-  IF(n > 0) THEN
-    WRITE(*,*) "Performing matrix-matrix multipliciation for SIZE=",n
-    WRITE(*,*)
-
-    !Create storage for matrices
-    ALLOCATE(a(n,n))
-    ALLOCATE(b(n,n))
-    ALLOCATE(c(n,n))
-    ALLOCATE(d(n,n))
-  
-    !Fill matrices with random numbers
-    CALL RANDOM_NUMBER(a)
-    CALL RANDOM_NUMBER(b)
-  
-    CALL SYSTEM_CLOCK(start,count_rate) !get start time
-
-    !my general matrix-matrix multiply
-    CALL mydgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,c,n)
-
-    CALL SYSTEM_CLOCK(finish) !get finish time
-
-    !Convert time to seconds and print
-    elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-    WRITE(*,'(a,f9.3,a)') "   mydgemm took",elapsed_time," seconds"
-
-    CALL SYSTEM_CLOCK(start,count_rate) !get start time
-
-    !my general matrix-matrix multiply
-    CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,d,n)
-
-    CALL SYSTEM_CLOCK(finish) !get finish time
-
-    !Convert time to seconds and print
-    elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
-    WRITE(*,'(a,f9.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
-
-     !Compare the result of your matrix multiply with BLAS
-    IF(ANY(ABS(c-d) > 1.0d-13)) THEN
-      WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
-      WRITE(*,*) MAXVAL(ABS(c-d))
-    ENDIF
-  ELSE
+  IF(n <= 0) THEN
     WRITE(*,*) "Matrix size must be greater than 0!"
     STOP 1
   ENDIF
+
+  WRITE(*,*) "Performing matrix-matrix multipliciation for SIZE=",n
+  WRITE(*,*)
+
+  !Create storage for matrices
+  ALLOCATE(a(n,n))
+  ALLOCATE(b(n,n))
+  ALLOCATE(c(n,n))
+  ALLOCATE(d(n,n))
+
+  !Fill matrices with random numbers
+  CALL RANDOM_NUMBER(a)
+  CALL RANDOM_NUMBER(b)
+
+  CALL SYSTEM_CLOCK(start,count_rate) !get start time
+
+  !my general matrix-matrix multiply
+  CALL mydgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,c,n)
+
+  CALL SYSTEM_CLOCK(finish) !get finish time
+
+  !Convert time to seconds and print
+  elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
+  WRITE(*,'(a,f9.3,a)') "   mydgemm took",elapsed_time," seconds"
+
+  CALL SYSTEM_CLOCK(start,count_rate) !get start time
+
+  !BLAS matrix-matrix multiply
+  CALL dgemm('n','n',n,n,n,1.0d0,a,n,b,n,0.0d0,d,n)
+
+  CALL SYSTEM_CLOCK(finish) !get finish time
+
+  !Convert time to seconds and print
+  elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
+  WRITE(*,'(a,f9.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
+
+!  !Compare the result of your matrix multiply with BLAS
+!  IF(ANY(ABS(c-d) > 1.0d-13)) THEN
+!    WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
+!    WRITE(*,*) MAXVAL(ABS(c-d))
+!  ENDIF
 
 CONTAINS
 
@@ -89,12 +89,12 @@ CONTAINS
     !C = alpha*A*B + beta*C
 
     !Simplifying assumptions
-    !   * Assume that matrices a, b, and c are all square (m == n == k)
-    !     This also means lda == ldb == ldc == n
-    !   * Ignore transa and transb for this exercise. Just pass in 'n'
-    !     for these arguments.
-    !   * You do not need to perform multiplication by alpha or beta.
-    !     You may assume these are 1 and 0, respectively.
+    ! * Assume that matrices a, b, and c are all square (m == n == k)
+    !   This also means lda == ldb == ldc == n
+    ! * Ignore transa and transb for this exercise. Just pass in 'n'
+    !   for these arguments.
+    ! * You do not need to perform multiplication by alpha or beta.
+    !   You may assume these are 1 and 0, respectively.
 
     !Inputs:
     ! transa = assume 'n'
@@ -111,7 +111,7 @@ CONTAINS
     !    ldc = leading dimension of C
 
     !Output:
-    !  An updated matrix c
+    ! An updated matrix c
 
     !Write your naive matrix multiply here
 
