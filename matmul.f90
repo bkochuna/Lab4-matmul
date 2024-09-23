@@ -70,11 +70,11 @@ PROGRAM matmul_example
   elapsed_time=REAL(finish-start,8)/REAL(count_rate,8)
   WRITE(*,'(a,f9.3,a)') "BLAS dgemm took",elapsed_time," seconds!"
 
-!  !Compare the result of your matrix multiply with BLAS
-!  IF(ANY(ABS(c-d) > 1.0d-13)) THEN
-!    WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
-!    WRITE(*,*) MAXVAL(ABS(c-d))
-!  ENDIF
+  !Compare the result of your matrix multiply with BLAS
+  IF(ANY(ABS(c-d) > 1.0d-11)) THEN
+    WRITE(*,*) "Uh oh! Is your matrix multiply correct?"
+    WRITE(*,*) MAXVAL(ABS(c-d))
+  ENDIF
 
 CONTAINS
 
