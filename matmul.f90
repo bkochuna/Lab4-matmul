@@ -35,7 +35,7 @@ PROGRAM matmul_example
     STOP 1
   ENDIF
 
-  WRITE(*,*) "Performing matrix-matrix multipliciation for SIZE=",n
+  WRITE(*,*) "Performing matrix-matrix multiplication for SIZE=",n
   WRITE(*,*)
 
   !Create storage for matrices

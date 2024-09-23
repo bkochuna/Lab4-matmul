@@ -134,7 +134,7 @@ int main(int argc, char** argv)
     std::cerr << n << " is an invalid size!" << std::endl;
     return 1;
   }
-  std::cout << " Performing matrix-matrix multipliciation for SIZE=" << n << std::endl;
+  std::cout << " Performing matrix-matrix multiplication for SIZE=" << n << std::endl;
 
   double * a = generate_random_matrix(n, n);
   double * b = generate_random_matrix(n, n);

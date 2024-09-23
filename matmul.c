@@ -137,7 +137,7 @@ int main(int argc, char** argv)
     fprintf(stderr, "%s is an invalid size!\n", argv[1]);
     return 1;
   }
-  printf(" Performing matrix-matrix multipliciation for SIZE=%d\n", n);
+  printf(" Performing matrix-matrix multiplication for SIZE=%d\n", n);
 
   double ** a = generate_random_matrix(n, n);
   double ** b = generate_random_matrix(n, n);
